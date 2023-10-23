@@ -1,0 +1,6 @@
+# ide
+.idea/
+
+# aws
+.aws-sam/
+server/samconfig.toml
