@@ -1,0 +1,76 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform:
+  - AWS::LanguageExtensions
+  - AWS::Serverless-2016-10-31
+Description: Cedge Backend Stack
+Resources:
+
+  CedgeAppRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: CedgeAppRoleLogsPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                  - logs:DescribeLogStreams
+                Resource: arn:aws:logs:*:*:*
+
+  CedgeApiGateway:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowOrigins:
+          - "https://localhost:3000"
+          - "http://localhost:3000"
+        AllowHeaders:
+          - "*"
+        AllowMethods:
+          - GET
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+
+  CedgeLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      MemorySize: 1024
+      CodeUri: ./
+      Handler: src/app.lambda_handler
+      Runtime: python3.11
+      Events:
+        SomeApi:
+          Type: HttpApi
+          Properties:
+            Path: /{path+}
+            Method: post
+            ApiId: !Ref CedgeApiGateway
+      Role: !GetAtt CedgeAppRole.Arn
+
+  CedgeApiGatewayInvoke:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt CedgeLambda.Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*/*/
+
+Outputs:
+  PinfluencerBaseUrl:
+    Description: "base url for cedge api"
+    Value: !Sub "https://${CedgeApiGateway}.execute-api.${AWS::Region}.amazonaws.com/"
