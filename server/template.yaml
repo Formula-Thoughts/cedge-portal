@@ -71,6 +71,6 @@ Resources:
       SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*/*/
 
 Outputs:
-  PinfluencerBaseUrl:
+  CedgeBaseUrl:
     Description: "base url for cedge api"
     Value: !Sub "https://${CedgeApiGateway}.execute-api.${AWS::Region}.amazonaws.com/"
