@@ -11,8 +11,12 @@ const TermsAndPrivacy = () => {
                         <p>By accessing and using our website, you accept and agree to be bound by the terms and provisions of this agreement.</p>
                     </li>
                     <li>
+                        <strong>Company</strong>
+                        <p>Formula Thoughts is the company behind cedge. A company registered in the UK</p>
+                    </li>
+                    <li>
                         <strong>Service Provision</strong>
-                        <p>"cedge" provides [Service/Product Description]. We reserve the right to change, suspend, or discontinue any aspect of our services at any time.</p>
+                        <p>"cedge" provides career services. We reserve the right to change, suspend, or discontinue any aspect of our services at any time.</p>
                     </li>
                     <li>
                         <strong>Registration</strong>
@@ -28,7 +32,7 @@ const TermsAndPrivacy = () => {
                     </li>
                     <li>
                         <strong>Governing Law</strong>
-                        <p>These terms shall be governed by and interpreted in accordance with the laws of [Country/Jurisdiction].</p>
+                        <p>These terms shall be governed by and interpreted in accordance with the laws of the UK.</p>
                     </li>
                     <li>
                         <strong>Amendments</strong>
@@ -42,7 +46,7 @@ const TermsAndPrivacy = () => {
                 <ol>
                     <li>
                         <strong>Data Collection</strong>
-                        <p>We collect personal data [types of data, e.g., name, email, etc.] when you register, use our services, or communicate with us.</p>
+                        <p>We collect personal data when you register, use our services, or communicate with us.</p>
                     </li>
                     <li>
                         <strong>Data Use</strong>
@@ -66,7 +70,7 @@ const TermsAndPrivacy = () => {
                     </li>
                     <li>
                         <strong>Contact</strong>
-                        <p>For any questions regarding these terms or our privacy practices, contact us at [company email].</p>
+                        <p>For any questions regarding these terms or our privacy practices, contact us at contact@formulathoughts.com.</p>
                     </li>
                 </ol>
             </section>
