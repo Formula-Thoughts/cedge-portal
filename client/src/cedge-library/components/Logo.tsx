@@ -1,7 +1,7 @@
 import React, { HTMLProps } from "react";
 import Image from "./Image";
 import styled from "styled-components";
-import LogoSmall from "../assets/logo-small.png";
+import LogoSmall from "../assets/logo-small.svg";
 
 const Wrapper = styled.div`
   img {

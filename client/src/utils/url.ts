@@ -1,17 +1,11 @@
 import * as cheerio from "cheerio";
+import {
+  linkedinJobDescriptionTarget,
+  linkedinJobUrlKeyword,
+} from "./linkedin";
 
 // Keywords used to detect if a url is a job.
-const jobUrlKeywords = ["?currentJobId"];
-
-// Only for linkedin - class target to get job description
-const linkedinJobDescriptionTarget = "jobs-details__main-content";
-
-// Only for Linkedin - getting job header details
-export const linkedinJobHeaderDetails = [
-  { target: ".job-details-jobs-unified-top-card__job-title", eq: 0 },
-  { target: ".job-details-jobs-unified-top-card__job-insight", eq: 0 },
-  { target: ".job-details-jobs-unified-top-card__job-insight", eq: 1 },
-];
+const jobUrlKeywords = [linkedinJobUrlKeyword];
 
 export function checkIfUrlIsJob(url: string): boolean {
   return jobUrlKeywords.some((keyword) => url.includes(keyword));

@@ -13,7 +13,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpg)$/,
+        test: /\.(png|jpg|svg)$/,
         type: "asset",
         parser: { dataUrlCondition: { maxSize: 1000 } },
       },

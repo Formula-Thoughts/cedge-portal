@@ -7,11 +7,7 @@ export type Props = {
 const AppContext = createContext<any>(undefined);
 
 const AppProvider = (props: Props) => {
-  const [activeUrl, setActiveUrl] = useState<null | {
-    tabId: null;
-    isJob: false;
-    contents: null;
-  }>(null); // Initialize state here
+  const [activeUrl, setActiveUrl] = useState(null); // Initialize state here
 
   return (
     <AppContext.Provider value={{ activeUrl, setActiveUrl }}>
@@ -21,7 +17,20 @@ const AppProvider = (props: Props) => {
 };
 
 export const useAppContext = () => {
-  const context = useContext(AppContext);
+  const context: {
+    activeUrl: {
+      tabId: number;
+      isJob: boolean;
+      contents: string;
+    };
+    setActiveUrl: React.Dispatch<
+      React.SetStateAction<{
+        tabId: number | undefined;
+        isJob: boolean | null;
+        contents: string | null;
+      } | null>
+    >;
+  } = useContext(AppContext);
   if (!context) {
     throw new Error("useApps must be used within a AppProvider");
   }

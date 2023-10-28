@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
 
     * {
         box-sizing: border-box;
-        font-family: ${(props) => props.theme.fonts.primary};
+        font-family: ${(props) => props.theme.fonts.family.primary};
     }
 
     html {
@@ -63,6 +63,16 @@ const GlobalStyle = createGlobalStyle`
     table {
         border-collapse: collapse;
         border-spacing: 0;
+    }
+
+    button, input[type="submit"], input[type="reset"] {
+        background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
     }
 `;
 

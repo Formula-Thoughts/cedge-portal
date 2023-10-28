@@ -3,10 +3,19 @@ import styled from "styled-components";
 
 export enum TextTypes {
   paragraph = "paragraph",
+  title = "title",
 }
 
 const Paragraph = styled.p`
-  font-size: 1.3rem;
+  font-size: ${(props) => props.theme.fonts.types.medium.size};
+  font-weight: ${(props) => props.theme.fonts.types.medium.fontWeight};
+  line-height: ${(props) => props.theme.fonts.types.medium.lineHeight};
+`;
+
+const Title = styled.h1`
+  font-size: ${(props) => props.theme.fonts.types.large.size};
+  font-weight: ${(props) => props.theme.fonts.types.large.fontWeight};
+  line-height: ${(props) => props.theme.fonts.types.large.lineHeight};
 `;
 
 type Props = {
@@ -20,6 +29,9 @@ const Text = (props: Props) => {
     <>
       {props.type === TextTypes.paragraph && (
         <Paragraph style={props.style}>{props.children}</Paragraph>
+      )}
+      {props.type === TextTypes.title && (
+        <Title style={props.style}>{props.children}</Title>
       )}
     </>
   );
