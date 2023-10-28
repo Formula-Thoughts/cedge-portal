@@ -22,16 +22,26 @@ type Props = {
   type: TextTypes;
   children: React.ReactNode;
   style?: React.CSSProperties;
+  id?: string;
+  className?: string;
 };
 
 const Text = (props: Props) => {
   return (
     <>
       {props.type === TextTypes.paragraph && (
-        <Paragraph style={props.style}>{props.children}</Paragraph>
+        <Paragraph
+          id={props.id}
+          className={props.className}
+          style={props.style}
+        >
+          {props.children}
+        </Paragraph>
       )}
       {props.type === TextTypes.title && (
-        <Title style={props.style}>{props.children}</Title>
+        <Title id={props.id} className={props.className} style={props.style}>
+          {props.children}
+        </Title>
       )}
     </>
   );
