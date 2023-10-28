@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from "react";
 import styled from "styled-components";
-import Logo from "../cedge-library/components/Logo";
+import Logo, { LogoType } from "../cedge-library/components/Logo";
 import Text, { TextTypes } from "../cedge-library/components/Text";
 
 const Wrapper = styled.div`
@@ -29,7 +29,7 @@ const MainLayout = (props: Props) => {
   return (
     <Wrapper>
       <Header>
-        <Logo />
+        <Logo type={LogoType.small} />
         <Text
           style={{ opacity: "0.5", flex: 1, textAlign: "right" }}
           type={TextTypes.paragraph}
