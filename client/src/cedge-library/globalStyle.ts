@@ -74,6 +74,11 @@ const GlobalStyle = createGlobalStyle`
         cursor: pointer;
         outline: inherit;
     }
+
+    textarea, input { 
+        outline: none;   
+        border: 0; 
+    }
 `;
 
 export default GlobalStyle;

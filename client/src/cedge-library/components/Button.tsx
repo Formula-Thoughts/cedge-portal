@@ -17,11 +17,13 @@ interface ButtonProps {
   label: string;
   onClick?: () => void;
   style?: React.CSSProperties;
+  type?: "button" | "reset" | "submit" | undefined;
+  id?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ label, onClick, style }) => {
+const Button: React.FC<ButtonProps> = ({ label, onClick, style, type, id }) => {
   return (
-    <Primary style={style} onClick={onClick}>
+    <Primary id={id} style={style} onClick={onClick} type={type ?? undefined}>
       {label}
     </Primary>
   );
