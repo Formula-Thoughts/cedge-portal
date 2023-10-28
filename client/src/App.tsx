@@ -2,7 +2,6 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import AppProvider, { useAppContext } from "./context/AppProvider";
 import { ThemeProvider } from "styled-components";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import theme from "./cedge-library/theme";
 import GlobalStyle from "./cedge-library/globalStyle";
 import Landing from "./views/Landing";
@@ -32,16 +31,15 @@ function App() {
     });
   };
 
-  // Reads changes when active tab changes
-  chrome.tabs.onUpdated.addListener(async () => {
-    setActiveUrl();
-  });
-  chrome.tabs.onActivated.addListener(function () {
-    setActiveUrl();
-  });
-
   useEffect(() => {
-    setActiveUrl();
+    // Reads changes when active tab changes
+    chrome.tabs.onUpdated.addListener(async () => {
+      console.log("[Performance] onUpdated");
+      setActiveUrl();
+    });
+    chrome.tabs.onActivated.addListener(function () {
+      setActiveUrl();
+    });
   }, []);
 
   return (
