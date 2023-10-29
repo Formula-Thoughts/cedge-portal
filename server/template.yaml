@@ -3,6 +3,19 @@ Transform:
   - AWS::LanguageExtensions
   - AWS::Serverless-2016-10-31
 Description: Cedge Backend Stack
+
+Parameters:
+  OpenAiApiKey:
+    Type: String
+    Description: Key for making openai calls
+
+Globals:
+  Function:
+    Timeout: 50
+    Environment:
+      Variables:
+        OPENAI_API_KEY: !Ref OpenAiApiKey
+
 Resources:
 
   CedgeAppRole:
