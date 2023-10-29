@@ -7,6 +7,7 @@ import GlobalStyle from "./cedge-library/globalStyle";
 import Landing from "./views/Landing";
 import Job from "./views/Job";
 import { checkIfUrlIsJob } from "./utils/url";
+import Summaries from "./views/Summaries";
 
 function App() {
   const navigate = useNavigate();
@@ -48,6 +49,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/job" element={<Job />} />
+        <Route path="/summaries" element={<Summaries />} />
       </Routes>
     </ThemeProvider>
   );

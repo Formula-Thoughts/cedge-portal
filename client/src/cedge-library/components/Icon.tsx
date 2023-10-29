@@ -12,16 +12,21 @@ export enum IconType {
 interface IconProps extends HTMLProps<HTMLImageElement> {
   type?: IconType;
   fill?: string;
+  style?: React.CSSProperties;
+  width?: number;
+  height?: number;
 }
 
-const Icon: React.FC<IconProps> = ({ type, fill }) => {
+const Icon: React.FC<IconProps> = ({ type, fill, style, width, height }) => {
   if (type === IconType.check) {
-    return <FaCheck fill={fill} />;
+    return <FaCheck fill={fill} style={style} size={width} height={height} />;
   }
   if (type === IconType.question) {
-    return <FaQuestion fill={fill} />;
+    return (
+      <FaQuestion fill={fill} style={style} size={width} height={height} />
+    );
   }
-  return <FaCheck />;
+  return <FaCheck style={style} size={width} height={height} />;
 };
 
 export default Icon;
