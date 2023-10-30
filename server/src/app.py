@@ -36,7 +36,7 @@ def lambda_handler(event, context):
 
         return {
             'statusCode': 200,
-            'body': json.dumps(response['choices'][0]['message']['content']),
+            'body': response['choices'][0]['message']['content'],
             'headers': default_headers
         }
     except Exception as e:
