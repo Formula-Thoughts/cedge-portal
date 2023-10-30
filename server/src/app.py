@@ -32,7 +32,7 @@ def lambda_handler(event, context):
                                f"schema provided, and only return the json"
                 }
             ],
-            temperature=0.1
+            temperature=0.5
         )
 
         return {
