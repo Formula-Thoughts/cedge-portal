@@ -27,7 +27,8 @@ def lambda_handler(event, context):
                 },
                 {
                     "role": "user",
-                    "content": f"take this job listing: \"{job_listing_json['content']}\" and write 3 summaries following the json "
+                    "content": f"take this job listing: \"{job_listing_json['content']}\" and write 3 summaries an "
+                               f"applicant might use for their cv following the json "
                                f"schema provided, and only return the json"
                 }
             ],
