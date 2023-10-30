@@ -22,17 +22,22 @@ def lambda_handler(event, context):
                                "for potential job applications writing their CV"
                 },
                 {
+                    "role": "user", "name": "example_response_format_schema",
+                    "content": "give me a json schema for formatting job applicant's cv summaries"
+                },
+                {
                     "role": "assistant", "name": "example_response_format_schema",
                     "content": "{\"summaries\": [\"SUMMARY 1\", \"SUMMARY 2\", \"SUMMARY 3\"]}"
                 },
                 {
                     "role": "user",
-                    "content": f"take this job listing: \"{job_listing_json['content']}\" and write 3 summaries an "
-                               f"applicant might use for their cv following the json "
-                               f"schema provided, and only return the json"
+                    "content": f"take this job listing: \"{job_listing_json['content']}\" and write 3 summaries a "
+                               f"job applicant might use for their cv that match the criteria for the job listing. "
+                               f"write the summaries following the json "
+                               f"schema provided in previous message, and only return the json"
                 }
             ],
-            temperature=0.5
+            temperature=0.1
         )
 
         return {
