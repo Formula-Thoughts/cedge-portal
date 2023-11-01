@@ -6,7 +6,10 @@ import openai
 
 def lambda_handler(event, context):
     default_headers = {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Methods': '*'
     }
     try:
         job_listing_json = json.loads(event['body'])
