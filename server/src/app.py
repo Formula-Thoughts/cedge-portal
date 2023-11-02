@@ -20,7 +20,7 @@ def lambda_handler(event, context):
         if 'content' not in job_listing_json:
             return {
                 'statusCode': 400,
-                'body': '{\'message\': \'missing required field: content\'}',
+                'body': '{\"message\": \"missing required field: content\"}',
                 'headers': default_headers
             }
 
@@ -54,7 +54,7 @@ def lambda_handler(event, context):
         except InvalidRequestError as e:
             return {
                 'statusCode': 400,
-                'body': '{\'message\': \'openai chat token limit\'}',
+                'body': '{\"message\": \"openai chat token limit\"}',
                 'headers': default_headers
             }
 
@@ -68,6 +68,6 @@ def lambda_handler(event, context):
 
         return {
             'statusCode': 500,
-            'body': '{\'message\': \'internal server error :(\'}',
+            'body': '{\"message\": \"internal server error :(\"}',
             'headers': default_headers
         }
