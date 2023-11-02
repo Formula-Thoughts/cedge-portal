@@ -28,7 +28,7 @@ def lambda_handler(event, context):
             messages=[
                 {
                     "role": "system",
-                    "content": "You are a helpful assistant, that processes html-based content job listings "
+                    "content": "You are a helpful assistant, that processes job listings "
                                "for potential job applications writing their CV"
                 },
                 {
@@ -56,7 +56,7 @@ def lambda_handler(event, context):
             'headers': default_headers
         }
     except Exception as e:
-        print(f"error occurred {e}")
+        print(f"{type(e).__name__} error occurred {e}")
 
         return {
             'statusCode': 500,
