@@ -66,6 +66,7 @@ Resources:
       CodeUri: ./
       Handler: src/app.lambda_handler
       Runtime: python3.11
+      Timeout: !Ref Timeout
       Events:
         SomeApi:
           Type: HttpApi
