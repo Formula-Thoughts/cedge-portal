@@ -2,6 +2,7 @@ import json
 import os
 
 import openai
+from openai import InvalidRequestError
 
 
 def lambda_handler(event, context):
@@ -23,32 +24,39 @@ def lambda_handler(event, context):
                 'headers': default_headers
             }
 
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You are a helpful assistant, that processes job listings "
-                               "for potential job applications writing their CV"
-                },
-                {
-                    "role": "user", "name": "example_response_format_schema",
-                    "content": "give me a json schema for formatting job applicant's cv summaries"
-                },
-                {
-                    "role": "assistant", "name": "example_response_format_schema",
-                    "content": "{\"summaries\": [\"SUMMARY 1\", \"SUMMARY 2\", \"SUMMARY 3\"]}"
-                },
-                {
-                    "role": "user",
-                    "content": f"take this job listing: \"{job_listing_json['content']}\" and write 3 summaries a "
-                               f"job applicant might use for their cv that match the criteria for the job listing. "
-                               f"write the summaries following the json "
-                               f"schema provided in previous message, and only return the json"
-                }
-            ],
-            temperature=0.1
-        )
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a helpful assistant, that processes job listings "
+                                   "for potential job applications writing their CV"
+                    },
+                    {
+                        "role": "user", "name": "example_response_format_schema",
+                        "content": "give me a json schema for formatting job applicant's cv summaries"
+                    },
+                    {
+                        "role": "assistant", "name": "example_response_format_schema",
+                        "content": "{\"summaries\": [\"SUMMARY 1\", \"SUMMARY 2\", \"SUMMARY 3\"]}"
+                    },
+                    {
+                        "role": "user",
+                        "content": f"take this job listing: \"{job_listing_json['content']}\" and write 3 summaries a "
+                                   f"job applicant might use for their cv that match the criteria for the job listing. "
+                                   f"write the summaries following the json "
+                                   f"schema provided in previous message, and only return the json"
+                    }
+                ],
+                temperature=0.1
+            )
+        except InvalidRequestError as e:
+            return {
+                'statusCode': 400,
+                'body': '{\'message\': \'openai chat token limit\'}',
+                'headers': default_headers
+            }
 
         return {
             'statusCode': 200,
