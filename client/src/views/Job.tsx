@@ -10,6 +10,8 @@ import Text, { TextTypes } from "../cedge-library/components/Text";
 import Button from "../cedge-library/components/Button";
 import { linkedinJobHeaderDetails } from "../utils/linkedin";
 import Shape from "../cedge-library/components/Shape";
+import { sendContentsToApi } from "../resources/api";
+import * as cheerio from "cheerio";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -33,11 +35,6 @@ const Job = () => {
     { target: string; data: string | [] }[] | null
   >(null);
   const state = useAppContext();
-
-  const getContentsOfUrl = async () => {
-    const data = await getLinkedinJobContents(state.activeUrl.tabId);
-    console.log("data", data);
-  };
 
   useEffect(() => {
     (async () => {
@@ -73,6 +70,7 @@ const Job = () => {
             </Text>
             <div style={{ position: "relative", display: "inline-block" }}>
               <Button
+                onClick={() => state.getSummariesFromApi()}
                 style={{
                   marginTop: "1rem",
                   zIndex: 1,

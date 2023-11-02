@@ -1,4 +1,8 @@
 import React, { createContext, useState, useContext } from "react";
+import { getLinkedinJobContents } from "../utils/url";
+import * as cheerio from "cheerio";
+import { sendContentsToApi } from "../resources/api";
+import { useNavigate } from "react-router-dom";
 
 export type Props = {
   children: JSX.Element;
@@ -7,10 +11,50 @@ export type Props = {
 const AppContext = createContext<any>(undefined);
 
 const AppProvider = (props: Props) => {
-  const [activeUrl, setActiveUrl] = useState(null); // Initialize state here
+  const [activeUrl, setActiveUrl] = useState<{
+    tabId: number;
+    isJob: boolean;
+    contents: string;
+  } | null>(null); // Initialize state here
+  const navigate = useNavigate();
+  const [isLoadingSummaries, setIsLoadingSummaries] = useState(false);
+  const [errorSummaries, setErrorSummaries] = useState(false);
+
+  const getSummariesFromApi = async () => {
+    const data = await getLinkedinJobContents(activeUrl?.tabId as number);
+    setIsLoadingSummaries(true);
+    if (data) {
+      const $ = cheerio.load(JSON.stringify(data[0].result as any));
+      console.log("data", $("span").text());
+
+      try {
+        const apiResponse: { summaries: Array<string> } =
+          await sendContentsToApi($("span").text());
+        if (apiResponse) {
+          setIsLoadingSummaries(false);
+          navigate("/summaries", {
+            state: apiResponse.summaries,
+          });
+          console.log("apiResponse", apiResponse);
+        }
+      } catch (error) {
+        setIsLoadingSummaries(false);
+        setErrorSummaries(true);
+      }
+    }
+  };
 
   return (
-    <AppContext.Provider value={{ activeUrl, setActiveUrl }}>
+    <AppContext.Provider
+      value={{
+        activeUrl,
+        setActiveUrl,
+        isLoadingSummaries,
+        setIsLoadingSummaries,
+        getSummariesFromApi,
+        errorSummaries,
+      }}
+    >
       {props.children}
     </AppContext.Provider>
   );
@@ -18,6 +62,9 @@ const AppProvider = (props: Props) => {
 
 export const useAppContext = () => {
   const context: {
+    errorSummaries: boolean;
+    isLoadingSummaries: boolean;
+    getSummariesFromApi(): void;
     activeUrl: {
       tabId: number;
       isJob: boolean;

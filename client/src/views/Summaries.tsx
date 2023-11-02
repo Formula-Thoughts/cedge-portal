@@ -4,11 +4,9 @@ import Text, { TextTypes } from "../cedge-library/components/Text";
 import styled from "styled-components";
 import Button from "../cedge-library/components/Button";
 import Icon from "../cedge-library/components/Icon";
+import { useLocation } from "react-router-dom";
 
-type Summary = {
-  id: string;
-  contents: string;
-};
+type Summary = string;
 
 const Pill = styled.div<{ isActive: boolean }>`
   background: ${(props) => {
@@ -17,6 +15,7 @@ const Pill = styled.div<{ isActive: boolean }>`
     }
     props.theme.colors.primaryDark;
   }};
+
   border-radius: 0.5rem;
   width: 2.5rem;
   height: 2.5rem;
@@ -27,26 +26,16 @@ const Pill = styled.div<{ isActive: boolean }>`
 `;
 
 const Summaries = () => {
+  const { state } = useLocation();
   const [activeSummary, setActiveSummary] = useState(0);
-  const [summaries, setSummaries] = useState<Summary[]>([
-    {
-      id: "id",
-      contents:
-        "Friendly, motivated retail assistant with two years of professional experience. I won a coveted employee bonus for exceptional work four times over the past six months and am now keen to utilise my skills in communication, organisation and leadership to transition to a supervisory role within the same industry.",
-    },
-    {
-      id: "id",
-      contents:
-        "Not Friendly :(, motivated retail assistant with two years of professional experience. I won a coveted employee bonus for exceptional work four times over the past six months and am now keen to utilise my skills in communication, organisation and leadership to transition to a supervisory role within the same industry.",
-    },
-  ]);
+  const [summaries, setSummaries] = useState<Summary[]>(state);
   const [copiedToClipboard, setCopyToClipboard] = useState(false);
 
   const copyToClipboard = async () => {
     if ("clipboard" in navigator) {
-      await navigator.clipboard.writeText(summaries[activeSummary].contents);
+      await navigator.clipboard.writeText(summaries[activeSummary]);
     } else {
-      document.execCommand("copy", true, summaries[activeSummary].contents);
+      document.execCommand("copy", true, summaries[activeSummary]);
     }
     setCopyToClipboard(true);
   };
@@ -74,9 +63,7 @@ const Summaries = () => {
           );
         })}
       </div>
-      <Text key={summaries[activeSummary].id} type={TextTypes.paragraph}>
-        {summaries[activeSummary].contents}
-      </Text>
+      <Text type={TextTypes.paragraph}>{summaries[activeSummary]}</Text>
       <div>
         <Button
           onClick={copyToClipboard}

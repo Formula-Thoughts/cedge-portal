@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { device } from "../util/mediaQueries";
 
 const Primary = styled.button`
   background: ${(props) => props.theme.colors.primary};
@@ -11,6 +12,10 @@ const Primary = styled.button`
   &:hover {
     background: ${(props) => props.theme.colors.primaryDark};
   }
+
+  @media ${device.tablet} {
+    padding: 1.1rem;
+  }
 `;
 
 interface ButtonProps {
@@ -19,11 +24,25 @@ interface ButtonProps {
   style?: React.CSSProperties;
   type?: "button" | "reset" | "submit" | undefined;
   id?: string;
+  name?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ label, onClick, style, type, id }) => {
+const Button: React.FC<ButtonProps> = ({
+  label,
+  onClick,
+  style,
+  type,
+  id,
+  name,
+}) => {
   return (
-    <Primary id={id} style={style} onClick={onClick} type={type ?? undefined}>
+    <Primary
+      id={id}
+      style={style}
+      onClick={onClick}
+      type={type ?? undefined}
+      name={name}
+    >
       {label}
     </Primary>
   );

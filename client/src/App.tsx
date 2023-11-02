@@ -8,6 +8,8 @@ import Landing from "./views/Landing";
 import Job from "./views/Job";
 import { checkIfUrlIsJob } from "./utils/url";
 import Summaries from "./views/Summaries";
+import Loading from "./views/Loading";
+import Error from "./views/Error";
 
 function App() {
   const navigate = useNavigate();
@@ -43,16 +45,21 @@ function App() {
     });
   }, []);
 
-  return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/job" element={<Job />} />
-        <Route path="/summaries" element={<Summaries />} />
-      </Routes>
-    </ThemeProvider>
-  );
+  if (state.isLoadingSummaries) {
+    return <Loading />;
+  } else {
+    if (state.errorSummaries) {
+      return <Error />;
+    } else {
+      return (
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/job" element={<Job />} />
+          <Route path="/summaries" element={<Summaries />} />
+        </Routes>
+      );
+    }
+  }
 }
 
 export default App;
