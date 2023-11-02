@@ -16,6 +16,13 @@ def lambda_handler(event, context):
 
         openai.api_key = os.getenv("OPENAI_API_KEY")
 
+        if 'content' not in job_listing_json:
+            return {
+                'statusCode': 400,
+                'body': '{\'message\': \'missing required field: content\'}',
+                'headers': default_headers
+            }
+
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
