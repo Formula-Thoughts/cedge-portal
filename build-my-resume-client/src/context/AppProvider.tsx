@@ -19,6 +19,7 @@ const AppProvider = (props: Props) => {
   const navigate = useNavigate();
   const [isLoadingSummaries, setIsLoadingSummaries] = useState(false);
   const [errorSummaries, setErrorSummaries] = useState(false);
+  const [linkedinProfile, setLikedinProfile] = useState<null | string>(null);
 
   const getSummariesFromApi = async () => {
     const data = await getLinkedinJobContents(activeUrl?.tabId as number);
@@ -53,6 +54,8 @@ const AppProvider = (props: Props) => {
         setIsLoadingSummaries,
         getSummariesFromApi,
         errorSummaries,
+        linkedinProfile,
+        setLikedinProfile,
       }}
     >
       {props.children}
@@ -62,18 +65,22 @@ const AppProvider = (props: Props) => {
 
 export const useAppContext = () => {
   const context: {
+    linkedinProfile: null | string;
+    setLikedinProfile: any;
     errorSummaries: boolean;
     isLoadingSummaries: boolean;
     getSummariesFromApi(): void;
     activeUrl: {
       tabId: number;
       isJob: boolean;
+      isLinkedinProfile: boolean;
       contents: string;
     };
     setActiveUrl: React.Dispatch<
       React.SetStateAction<{
         tabId: number | undefined;
         isJob: boolean | null;
+        isLinkedinProfile: boolean | null;
         contents: string | null;
       } | null>
     >;

@@ -3,10 +3,11 @@ import AppProvider, { useAppContext } from "./context/AppProvider";
 import { useEffect, useState } from "react";
 import Landing from "./views/Landing";
 import Job from "./views/Job";
-import { checkIfUrlIsJob } from "./utils/url";
+import { checkIfUrlIsJob, checkIfUrlIsLinkedinProfile } from "./utils/url";
 import Summaries from "./views/Summaries";
 import Loading from "./views/Loading";
 import Error from "./views/Error";
+import AddLinkedinProfile from "./views/AddLinkedinProfile";
 
 function App() {
   const navigate = useNavigate();
@@ -19,14 +20,21 @@ function App() {
         state.setActiveUrl({
           tabId: tabs[0].id,
           isJob: checkIfUrlIsJob(url),
+          isLinkedinProfile: checkIfUrlIsLinkedinProfile(url),
           contents: url,
         });
 
+        if (checkIfUrlIsLinkedinProfile(url)) {
+          navigate("/add-linkedin-profile");
+          return;
+        }
+
         if (checkIfUrlIsJob(url)) {
           navigate("/job");
-        } else {
-          navigate("/");
+          return;
         }
+
+        navigate("/");
       }
     });
   };
@@ -44,19 +52,20 @@ function App() {
 
   if (state.isLoadingSummaries) {
     return <Loading />;
-  } else {
-    if (state.errorSummaries) {
-      return <Error />;
-    } else {
-      return (
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/job" element={<Job />} />
-          <Route path="/summaries" element={<Summaries />} />
-        </Routes>
-      );
-    }
   }
+
+  if (state.errorSummaries) {
+    return <Error />;
+  }
+
+  return (
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/job" element={<Job />} />
+      <Route path="/summaries" element={<Summaries />} />
+      <Route path="/add-linkedin-profile" element={<AddLinkedinProfile />} />
+    </Routes>
+  );
 }
 
 export default App;

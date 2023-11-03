@@ -7,6 +7,7 @@ const theme: DefaultTheme = {
     secondary: "#4D9EAF",
     background: "#0D0F17",
     text: "#F3F1FC",
+    disabled: "#7C7A8B",
   },
   fonts: {
     family: {

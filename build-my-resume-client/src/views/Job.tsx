@@ -49,7 +49,7 @@ const Job = () => {
 
   if (jobInfo) {
     return (
-      <MainLayout step={2}>
+      <MainLayout>
         <Wrapper>
           <ImageWrapper>
             <Shape type={3} style={{ height: "4rem", marginLeft: "-2rem" }} />

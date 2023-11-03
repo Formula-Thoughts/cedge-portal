@@ -12,7 +12,7 @@ const Wrapper = styled.div`
 `;
 const Error = () => {
   return (
-    <MainLayout step={0}>
+    <MainLayout>
       <Wrapper>
         <div>
           <Text style={{ fontWeight: "bold" }} type={TextTypes.title}>

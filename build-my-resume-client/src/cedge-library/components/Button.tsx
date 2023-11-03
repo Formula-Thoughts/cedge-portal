@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { device } from "../util/mediaQueries";
 
 const Primary = styled.button`
-  background: ${(props) => props.theme.colors.primary};
+  background: ${(props) => {
+    if (props.disabled) return props.theme.colors.disabled;
+
+    return props.theme.colors.primary;
+  }};
   color: ${(props) => props.theme.colors.text};
   padding: 1.5rem;
   border-radius: 0.7rem;
@@ -25,6 +29,7 @@ interface ButtonProps {
   type?: "button" | "reset" | "submit" | undefined;
   id?: string;
   name?: string;
+  disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -34,6 +39,7 @@ const Button: React.FC<ButtonProps> = ({
   type,
   id,
   name,
+  disabled,
 }) => {
   return (
     <Primary
@@ -42,6 +48,7 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       type={type ?? undefined}
       name={name}
+      disabled={disabled}
     >
       {label}
     </Primary>

@@ -1,7 +1,8 @@
 import React, { PropsWithChildren } from "react";
 import styled from "styled-components";
 import Logo, { LogoType } from "../cedge-library/components/Logo";
-import Text, { TextTypes } from "../cedge-library/components/Text";
+import Image from "../cedge-library/components/Image";
+import BuildMyResumeLogo from "../cedge-library/assets/build-my-resume-logo.svg";
 
 const Wrapper = styled.div`
   padding: 1rem;
@@ -26,11 +27,11 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  margin-bottom: 1rem;
 `;
 
 type Props = {
   children: React.ReactNode;
-  step: number;
 };
 
 const MainLayout = (props: Props) => {
@@ -38,12 +39,11 @@ const MainLayout = (props: Props) => {
     <Wrapper>
       <Header>
         <Logo type={LogoType.small} />
-        <Text
-          style={{ opacity: "0.5", flex: 1, textAlign: "right" }}
-          type={TextTypes.paragraph}
-        >
-          Step ({props.step}/3)
-        </Text>
+        <Image
+          src={BuildMyResumeLogo}
+          style={{ width: "4rem", marginLeft: "0.5rem" }}
+          alt="Logo build my resume "
+        />
       </Header>
       {props.children}
     </Wrapper>

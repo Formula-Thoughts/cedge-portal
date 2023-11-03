@@ -8,6 +8,7 @@ import Shape4 from "../assets/shape-4.svg";
 import Shape5 from "../assets/shape-5.svg";
 import Shape6 from "../assets/shape-6.svg";
 import Shape7 from "../assets/shape-7.svg";
+import Shape8 from "../assets/shape-8.svg";
 
 const Shape = (props: {
   type?: number;
@@ -30,6 +31,8 @@ const Shape = (props: {
       return Shape6;
     } else if (props.type === 7) {
       return Shape7;
+    } else if (props.type === 8) {
+      return Shape8;
     }
     return Shape1;
   };

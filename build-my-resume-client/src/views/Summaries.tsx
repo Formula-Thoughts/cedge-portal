@@ -41,7 +41,7 @@ const Summaries = () => {
   };
 
   return (
-    <MainLayout step={3}>
+    <MainLayout>
       <Text
         style={{ opacity: 0.8, marginBottom: "0.8rem", marginTop: "1rem" }}
         type={TextTypes.paragraph}

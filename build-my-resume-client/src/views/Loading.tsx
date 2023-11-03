@@ -19,7 +19,7 @@ const ImageWrapper = styled.div`
 `;
 const Loading = () => {
   return (
-    <MainLayout step={2}>
+    <MainLayout>
       <Wrapper>
         <ImageWrapper>
           <Shape

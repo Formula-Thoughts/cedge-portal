@@ -29,7 +29,7 @@ const DumbData = styled.div``;
 
 const Landing = () => {
   return (
-    <MainLayout step={1}>
+    <MainLayout>
       <Wrapper>
         <Text type={TextTypes.paragraph} style={{ marginTop: "2rem" }}>
           How to use Summary Generator?
