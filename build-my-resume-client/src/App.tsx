@@ -24,11 +24,6 @@ function App() {
           contents: url,
         });
 
-        if (checkIfUrlIsLinkedinProfile(url)) {
-          navigate("/add-linkedin-profile");
-          return;
-        }
-
         if (checkIfUrlIsJob(url)) {
           navigate("/job");
           return;
@@ -50,6 +45,10 @@ function App() {
     });
   }, []);
 
+  if (!state.linkedinProfile) {
+    return <AddLinkedinProfile />;
+  }
+
   if (state.isLoadingSummaries) {
     return <Loading />;
   }
@@ -63,7 +62,6 @@ function App() {
       <Route path="/" element={<Landing />} />
       <Route path="/job" element={<Job />} />
       <Route path="/summaries" element={<Summaries />} />
-      <Route path="/add-linkedin-profile" element={<AddLinkedinProfile />} />
     </Routes>
   );
 }
